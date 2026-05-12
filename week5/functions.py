@@ -66,6 +66,38 @@ def sort_0s_in_arry(arry:list[int]) -> list:
             changes_counter += 1
     return arry
 
-# print(sort_0s_in_arry([0, 0, 5, 1, 0, 1,0, 0, 0, 5]))
+# print(sort_0s_in_arry([0, 0, 5, 1, 0, 1,0, 0, 0, 5])) #for checking
 
 #9.
+def statistical_detiles_from_arry(arry:list[int]) -> None:
+    if len(arry) == 0:
+        return "empty list"
+    sum_of_numbers = 0
+    minimum = arry[0]
+    maximum = minimum
+    for num in arry:
+        sum_of_numbers += num
+        if num < minimum:
+            minimum = num
+        elif num > maximum:
+            maximum = num
+    average_of_numbers = sum_of_numbers / len(arry)
+    print(f"""the sumof numbers: {sum_of_numbers}
+the average: {average_of_numbers}
+the minimum value: {minimum}
+the maximum value: {maximum}""")
+
+#10.
+def reverse_list(list:list) -> list:
+    reversed_list = []
+    for i in range(len(list)):
+        reversed_list.append(list[i*-1 -1])
+    return reversed_list
+
+#11.
+def unique_values_of_arry(arry:list) -> list:
+    unique_values_list = []
+    for value in arry:
+        if value not in unique_values_list:
+            unique_values_list.append(value)
+    return unique_values_list
