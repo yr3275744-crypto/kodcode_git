@@ -74,7 +74,7 @@ def main():
             add_task(FILENAME, desc)
             print('Task added!')
         elif choice == '3':
-            task_id = int(input('Task number: '))
+            task_id = input('Task number: ')
             complete_task(FILENAME, task_id)
         elif choice == '4':
             print('Goodbye!')
