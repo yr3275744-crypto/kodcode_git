@@ -1,5 +1,3 @@
-
-
 def load_tasks(filename):
     
     tasks = []
@@ -9,8 +7,6 @@ def load_tasks(filename):
             tasks.append({"id":line[0], "status": line[1], "desc":line[2].strip("\n")})
         
     return tasks
-
-tasks = load_tasks("C:\\Users\\יצחק ריינר\\my_python\\kodcode_git\\week7\\to-do_list\\tasks.txt")
 
 
 def save_tasks(filename, tasks):
