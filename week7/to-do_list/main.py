@@ -1,6 +1,14 @@
-def load_tasks(filename):
+import os
+
+
+def load_tasks(filename:str):
     
     tasks = []
+
+    if not os.path.exists(filename):
+        print("The file dors not exists")
+        return tasks
+    
     with open(filename , "r") as f:
         for line in f:
             line = line.split("|")
@@ -9,8 +17,8 @@ def load_tasks(filename):
     return tasks
 
 
-def save_tasks(filename, tasks):
-    
+def save_tasks(filename:str, tasks:list[dict]):
+
     with open(filename , "w") as f:
         for line in tasks:
             f.write(f"{line["id"]}|{line["status"]}|{line["desc"]} \n")
@@ -18,7 +26,7 @@ def save_tasks(filename, tasks):
     return None
 
 
-def add_task(filename, description):
+def add_task(filename:str, description:str):
     
     tasks = load_tasks(filename)
     id = len(tasks) + 1
@@ -28,7 +36,7 @@ def add_task(filename, description):
     return None
 
 
-def complete_task(filename, task_id):
+def complete_task(filename:str, task_id:str):
 
     tasks = load_tasks(filename)
     task_id = str(task_id)
@@ -48,7 +56,7 @@ def complete_task(filename, task_id):
     return None
 
 
-def list_tasks(filename):
+def list_tasks(filename:str):
     
     tasks = load_tasks(filename)
     for task in tasks:
@@ -58,6 +66,7 @@ def list_tasks(filename):
 
 def main():
     FILENAME = "tasks.txt"
+    
     while True:
         print('\n=== To-Do List Manager ===')
         print('1. View Tasks')
