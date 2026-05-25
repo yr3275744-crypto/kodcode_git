@@ -1,5 +1,5 @@
 import logging
-
+import json
 #question 1
 # 1.x
 # 2.v
@@ -77,3 +77,12 @@ def read_config(filepath):
     except FileNotFoundError:
         logger.exception("fail to read the file - file is not found")
         return None
+
+#question 9
+def write_structured_log(level, moudule, message, **extra):
+    new_dict = {"level":level, "moudule":moudule, "message":message}
+    new_dict.update(extra)
+    log_json = json.dumps(new_dict)
+    print(log_json)
+
+write_structured_log("info", "aba.py", "fefefe", po = "po", ur = "52")
