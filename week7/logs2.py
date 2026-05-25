@@ -38,7 +38,7 @@ logger = logging.getLogger(__name__)
 logger.info('Application started')
 
 
-# #question 6
+#question 6
 logging.basicConfig(level=logging.DEBUG, format='%(levelname)s | %(message)s')
 logger = logging.getLogger(__name__)
 
@@ -52,7 +52,7 @@ def process_payment(user_id, amount):
     logger.info(f'Payment of {amount} completed for user {user_id}')
 
 
-# ##question 7
+#question 7
 logger = logging.getLogger('payments')
 logger.setLevel(level = logging.DEBUG)
 file_handler = logging.FileHandler("app.log", encoding = "utf8")
@@ -78,6 +78,7 @@ def read_config(filepath):
         logger.exception("fail to read the file - file is not found")
         return None
 
+
 #question 9
 def write_structured_log(level, moudule, message, **extra):
     new_dict = {"level":level, "moudule":moudule, "message":message}
@@ -85,4 +86,19 @@ def write_structured_log(level, moudule, message, **extra):
     log_json = json.dumps(new_dict)
     print(log_json)
 
-write_structured_log("info", "aba.py", "fefefe", po = "po", ur = "52")
+
+#question 10
+#logger.info('done') : חסר פירוט. יש להוסיף מה נעשה.
+#logger.error('failed') : חסר פירוט כנ"ל. להוסיף מה נכשל.
+#logger.info('user=%s', user_id) : יש יותר פירוט מה המשתמש. 
+#אפשר להוסיף מה ההקשר שהמידע נצרך אליו
+
+
+#question 11
+#1: info
+#2. error
+#3. debug
+#4. warning
+#5. info
+#6. error, and debug
+
