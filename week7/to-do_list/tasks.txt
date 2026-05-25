@@ -1,0 +1,4 @@
+1|pending|go go    
+2|done|left left 
+3|done| practis  
+4|done|to tot to 
