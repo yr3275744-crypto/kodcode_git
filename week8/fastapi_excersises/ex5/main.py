@@ -45,12 +45,9 @@ def count():
         return "There have 0 grades."
 
 @app.get("/students/{student_id}")
-def student(student_id:int):
-    for k,v  in grades.items():
-        if k == student_id:
-            return v
+def student(student_id:str):
+    return grades.get(student_id, "error, no such student id.")
     
-    return "The student is not found."
 
 if __name__ == "__main__":
     uvicorn.run(app)
