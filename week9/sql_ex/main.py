@@ -49,6 +49,13 @@ def get_soldier(soldier_id:int):
         raise HTTPException(status_code = 404, detail = "Soldier not found")
 
 
+@app.delete("/suldiers/{soldier_id}")
+def delete_soldier(soldier_id:int):
+    is_deleted = db.delete_line(soldier_id)
+    if is_deleted:
+        return {"message":"the soldier deleted successfully"}
+    else:
+        raise HTTPException(status_code=404, detail="Soldier not found")
 
 if __name__ == "__main__":
     uvicorn.run(app, port=8000)

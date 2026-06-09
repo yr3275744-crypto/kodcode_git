@@ -58,6 +58,7 @@ def create_line(name:str, ranky:str, unit:str) -> int:
     return new_id
 
 def update_line(soldier_id:int, data:dict):
+    """docstring"""
     conn = get_connection()
     cursor = conn.cursor()
 
@@ -73,6 +74,19 @@ def update_line(soldier_id:int, data:dict):
     cursor.close()
     conn.close()
     return changed
+
+def delete_line(soldier_id:int) -> bool:
+    """docstring"""
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM soldiers WHERE id = %s", (soldier_id,))
+    conn.commit()
+
+    deleted = cursor.rowcount > 0
+
+    cursor.close()
+    conn.close()
+    return deleted
 
 
 if __name__ == "__main__":
