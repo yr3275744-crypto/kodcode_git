@@ -10,6 +10,7 @@ class SoldierIn(BaseModel):
     name: str
     ranky: str | None = None
     unit: str | None
+    active: bool = True
 
 
 @app.post("/setup")
@@ -28,7 +29,7 @@ def get_all_soldiers():
 
 @app.post("/soldiers", status_code = 201)
 def add_soldier(body:SoldierIn):
-    new_id = db.create_line(body.name, body.ranky, body.unit)
+    new_id = db.create_line(body.name, body.ranky, body.unit, body.active)
     return {"id":new_id, "message":"Soldier created"}
 
 @app.put("/soldiers/{soldier_id}")

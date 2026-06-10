@@ -1,7 +1,9 @@
 import mysql.connector
+import setup
 import time
 
 time.sleep(2)
+
 def get_connection():
     """docstring"""
     return mysql.connector.connect(host="localhost",
@@ -43,12 +45,12 @@ def get_by_id(soldier_id:int) -> dict | None:
     conn.close()
     return row
 
-def create_line(name:str, ranky:str, unit:str) -> int:
+def create_line(name:str, ranky:str, unit:str, active:bool = True) -> int:
     """docstring"""
     conn = get_connection()
     cursor = conn.cursor()
     
-    cursor.execute("INSERT INTO soldiers (name, ranky, unit) VALUES (%s, %s, %s)", (name, ranky, unit))
+    cursor.execute("INSERT INTO soldiers (name, ranky, unit, active) VALUES (%s, %s, %s, %s)", (name, ranky, unit, active))
     conn.commit()
 
     new_id = cursor.lastrowid
