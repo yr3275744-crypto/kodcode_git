@@ -102,3 +102,17 @@ def write_structured_log(level, moudule, message, **extra):
 #5. info
 #6. error, and debug
 
+
+#question 12
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
+def register_user(email, password, age):
+    logger.debug('check the user age, if over 18')
+    if age < 18:
+        logger.error('the user age is below 18')
+        return
+    logger.info('the user is valid. email=%s has_password=%s', email, bool(password))
+    logger.info('the register user succeeded')
+
+
+#question 13
