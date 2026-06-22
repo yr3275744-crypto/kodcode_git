@@ -18,9 +18,9 @@ class FleetManagment
         {
             if (tracks[i] == id)
             {
-                tracks.Remove(id);
-                speeds.Remove(speeds[i]);
-                headings.Remove(headings[i]);
+                tracks.RemoveAt(i);
+                speeds.RemoveAt(i);
+                headings.RemoveAt(i);
                 IsRemoved = true;
             }
         }
@@ -74,17 +74,57 @@ class FleetManagment
         return filteredList;
     }
 
-    //static void FilterTracks(List<int> FilteredTracks)
-    //{ }
+    static void FilterTracks(List<int> filteredTracks)
+    {
+        Console.WriteLine("Tracks with speed above the requested speed: ");
+        foreach (int val in filteredTracks)
+        {
+            Console.WriteLine(val);
+        }
+    }
 
-    //static string SummarizeTrack()
-    //{ }
+    static string SummarizeTrack(List<int> tracks, List<double> speeds)
+    {
+        int count = 0;
+        double averageSpeed = 0;
+        double fastedSpeed = 0;
+        int fastedSpeedIndex = 0;
+        double sum = 0;
+        
+        if (tracks.Count == 0)
+        {
+            return "No tracks.";
+        }
 
-    //static void SummarizeTrack(string summary)
-    //{ }
+        for (int i = 0; i < tracks.Count; i ++)
+        {
+            count = count + 1;
+            sum = sum + speeds[i];
+            if (speeds[i] > fastedSpeed)
+            {
+                fastedSpeedIndex = i;
+            }
+        }
+        averageSpeed = sum / count;
+        return $"Tracks: {count}\naverage speed: {averageSpeed}\nThe fastest track: {tracks[fastedSpeedIndex]}";
+    }
 
-    //static void PrintMenu()
-    //{ }
+    static void SummarizeTrack(string summary)
+    {
+        Console.WriteLine($"Summary:\n{summary}");
+    }
+
+    static void PrintMenu()
+    {
+        Console.WriteLine("=== Filter Management Console ===\n" +
+            "1.Add a track\n" +
+            "2.Remove a track\n" +
+            "3.Find track by id\n" +
+            "4.Get all tracks\n" +
+            "5.Filter the tracks by minimum speed\n" +
+            "6.Get Summary\n" +
+            "7.Exit: ");
+    }
 
     //static void PlayAction(int choice)
     //{ }
@@ -102,16 +142,28 @@ class FleetManagment
         AddTrack(tracks, speeds, headings, 2, 200, 90);
         Console.WriteLine("success");
         
-        string success = FindTrack(tracks, speeds, headings, 1);
+        AddTrack(tracks, speeds, headings, 3, 250, 180);
+        Console.WriteLine("success");
+
+        string success = FindTrack(tracks, speeds, headings, 2);
         FindTrack(success);
 
         ListAllTracks(tracks, speeds, headings);
 
         List<int> filtered = FilterTracks(tracks, speeds, 105);
-        foreach(int val in filtered)
-        {
-            Console.WriteLine(val);
-        }
+        
+        FilterTracks(filtered);
+
+        string summary = SummarizeTrack(tracks, speeds);
+        SummarizeTrack(summary);
+
+        bool isRemoved = RemoveTrack(tracks, speeds, headings, 2);
+        
+        string uu = FindTrack(tracks, speeds, headings, 2);
+        FindTrack(uu);
+
+        PrintMenu();
+
     }
 
 }
