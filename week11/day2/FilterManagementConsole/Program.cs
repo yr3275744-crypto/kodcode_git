@@ -3,7 +3,7 @@ namespace FilterManagementConsole;
 
 class FleetManagment
 {
-    static bool AddTrack(List<int> tracks,List<double> speeds, List<double> headings, int id, double speed,double heading)
+    static bool AddTrack(List<int> tracks, List<double> speeds, List<double> headings, int id, double speed, double heading)
     {
         tracks.Add(id);
         speeds.Add(speed);
@@ -14,7 +14,7 @@ class FleetManagment
     static bool RemoveTrack(List<int> tracks, List<double> speeds, List<double> headings, int id)
     {
         bool IsRemoved = false;
-        for(int i = 0; i < tracks.Count; i ++)
+        for (int i = 0; i < tracks.Count; i++)
         {
             if (tracks[i] == id)
             {
@@ -32,7 +32,7 @@ class FleetManagment
         //bool isFound = false;
         //double speed;
         //double heading;
-        for(int i = 0; i < tracks.Count; i ++)
+        for (int i = 0; i < tracks.Count; i++)
         {
             if (tracks[i] == id)
             {
@@ -52,7 +52,7 @@ class FleetManagment
     static void ListAllTracks(List<int> tracks, List<double> speeds, List<double> headings)
     {
         Console.WriteLine("===");
-        for (int i = 0; i < tracks.Count; i ++)
+        for (int i = 0; i < tracks.Count; i++)
         {
             int id = tracks[i];
             double speed = speeds[i];
@@ -64,7 +64,7 @@ class FleetManagment
     static List<int> FilterTracks(List<int> tracks, List<double> speeds, double speed)
     {
         List<int> filteredList = new List<int>();
-        for(int i = 0; i < tracks.Count; i ++)
+        for (int i = 0; i < tracks.Count; i++)
         {
             if (speeds[i] >= speed)
             {
@@ -90,13 +90,13 @@ class FleetManagment
         double fastedSpeed = 0;
         int fastedSpeedIndex = 0;
         double sum = 0;
-        
+
         if (tracks.Count == 0)
         {
             return "No tracks.";
         }
 
-        for (int i = 0; i < tracks.Count; i ++)
+        for (int i = 0; i < tracks.Count; i++)
         {
             count = count + 1;
             sum = sum + speeds[i];
@@ -126,8 +126,130 @@ class FleetManagment
             "7.Exit: ");
     }
 
-    //static void PlayAction(int choice)
-    //{ }
+
+    static int GetActionNumber()
+    {
+        string? choice = Console.ReadLine();
+        if (int.TryParse(choice, out int intChoice))
+        {
+            if (intChoice >= 1 && intChoice <= 7)
+            {
+                return intChoice;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+    static int GetId()
+    {
+        Console.WriteLine("Enter id: ");
+        string? stringId = Console.ReadLine();
+        if (int.TryParse(stringId, out int id))
+        {
+            return id;
+        }    
+        else
+        {
+            return 0;
+        }
+    }
+
+    static double GetSpeed()
+    {
+        Console.WriteLine("Enter speed: ");
+        string? stringId = Console.ReadLine();
+        if (double.TryParse(stringId, out double speed))
+        {
+            return speed;
+        }
+        else
+        {
+            return ;
+        }
+    }
+
+
+    static double? GetHeading()
+    {
+        Console.WriteLine("Enter heading: ");
+        string? stringId = Console.ReadLine();
+        if (double.TryParse(stringId, out double heading))
+        {
+            return heading;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    static string AddTrackHandle(List<int> tracks, List<double> speeds, List<double> headings)
+    {
+        int id = GetId();
+        if (id is null)
+        { return "ID must br an integer."; }
+
+        double speed = GetSpeed();
+        if (speed is null)
+        { return "Speed must be a number."; }
+
+        double heading = GetHeading();
+        if (heading is null)
+        { return "Heading must be a number."; }
+
+        bool isAdded = AddTrack(tracks, speeds, headings, id, speed, heading);
+        if (isAdded)
+        { return "The track is added successfully!"; }
+    }
+
+
+    static string PlayAction(int choice, List<int> tracks, List<double> speeds, List<double> headings)
+    {
+        switch (choice)
+        { 
+            case 1:
+                return AddTrackHandle(tracks, speeds, headings);
+            case 2:
+                int? id = GetId();
+                if (id is null)
+                { return "ID must be a number"; }
+                isDeleted = RemoveTrack(tracks, speeds, headings, id);
+                return RemoveTrack(isDeleted);
+            
+            case 3:
+                int? id = GetId();
+                if (id is null)
+                { return "ID must be a number"; }
+                return FindTrack(tracks, speeds, headings, id);
+            
+            case 4:
+                ListAllTracks();
+                return null;
+            
+            case 5:
+                double? speed = GetSpeed();
+                if (speed is null)
+                { return "speed must be a number"; }
+                list<int> filterd = FilterTracks(tracks, speeds, headings, speed);
+                FilterTracks(filterd);
+                return null;
+            
+            case 6:
+                return SummarizeTrack(tracks, speeds);
+            
+            case 7:
+                return "exit";
+
+
+        }
+    }
 
     static void Main()
     {
@@ -163,6 +285,17 @@ class FleetManagment
         FindTrack(uu);
 
         PrintMenu();
+
+        int? action = GetActionNumber();
+        if (action is null)
+        {
+            Console.WriteLine("Invalid choice");
+        }
+        else
+        {
+            string? message = PlayAction(action);
+        }
+
 
     }
 
