@@ -147,17 +147,18 @@ class FleetManagment
         }
     }
 
-    static int GetId()
+    static int? GetId()
     {
         Console.WriteLine("Enter id: ");
         string? stringId = Console.ReadLine();
         if (int.TryParse(stringId, out int id))
         {
-            return id;
+            int? nullableId = id;
+            return nullableId;
         }    
         else
         {
-            return 0;
+            return null;
         }
     }
 
@@ -167,11 +168,12 @@ class FleetManagment
         string? stringId = Console.ReadLine();
         if (double.TryParse(stringId, out double speed))
         {
-            return speed;
+            double? nullableSpeed = speed;
+            return nullableSpeed;
         }
         else
         {
-            return ;
+            return null;
         }
     }
 
@@ -182,7 +184,8 @@ class FleetManagment
         string? stringId = Console.ReadLine();
         if (double.TryParse(stringId, out double heading))
         {
-            return heading;
+            double? nullableHeading = heading;
+            return nullableHeading;
         }
         else
         {
@@ -204,7 +207,11 @@ class FleetManagment
         if (heading is null)
         { return "Heading must be a number."; }
 
-        bool isAdded = AddTrack(tracks, speeds, headings, id, speed, heading);
+        int intId = id;
+        double doubleSpeed = speed;
+        double doubleHeading = heading;
+
+        bool isAdded = AddTrack(tracks, speeds, headings, intId, doubleSpeed, doubleHeading);
         if (isAdded)
         { return "The track is added successfully!"; }
     }
@@ -220,14 +227,16 @@ class FleetManagment
                 int? id = GetId();
                 if (id is null)
                 { return "ID must be a number"; }
-                isDeleted = RemoveTrack(tracks, speeds, headings, id);
+                int intId = id;
+                isDeleted = RemoveTrack(tracks, speeds, headings, intId);
                 return RemoveTrack(isDeleted);
             
             case 3:
                 int? id = GetId();
                 if (id is null)
                 { return "ID must be a number"; }
-                return FindTrack(tracks, speeds, headings, id);
+                int intId = id;
+                return FindTrack(tracks, speeds, headings, intId);
             
             case 4:
                 ListAllTracks();
@@ -237,7 +246,9 @@ class FleetManagment
                 double? speed = GetSpeed();
                 if (speed is null)
                 { return "speed must be a number"; }
-                list<int> filterd = FilterTracks(tracks, speeds, headings, speed);
+
+                double doubleSpeed = speed;
+                list<int> filterd = FilterTracks(tracks, speeds, headings, doubleSpeed);
                 FilterTracks(filterd);
                 return null;
             
