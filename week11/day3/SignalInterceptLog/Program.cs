@@ -208,9 +208,12 @@ class LogManage
                 GetAllSignals(ids, classifications, strengths);
                 return "complite";
 
-            default:
+            case 4:
                 flag = false;
                 return "complite";
+
+            default:
+                return "This option id not available now.";
         }
     }
 
