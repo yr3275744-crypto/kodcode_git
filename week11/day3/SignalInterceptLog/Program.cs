@@ -160,7 +160,7 @@ class LogManage
         return CheckIsInt(choice);
     }
 
-    static string AddSignalHandle()
+    static string AddSignalHandle(List<int> ids, List<Classification> classifications, List<double?> strengths)
     {
         int? nullableId = GetId();
         if (nullableId is null)
@@ -182,23 +182,35 @@ class LogManage
         }
 
         int id = nullableId.Value;
-        Classification classification = nullabalClassification.Value();
-
-        return "error";
-
+        Classification classification = nullabalClassification.Value;
+        //double strength = nullableStrength.Value;
+        bool isAdded = AddSignal(ids, classifications, strengths, id, classification, nullableStrength);
+        if (isAdded)
+        {
+            return $"The signal {id} is added successfully";
+        }
+        else
+        {
+            return $"Filed to add the {id} signal.";
+        }
 
     }
 
-    static string PlayAction(int? choice, ref bool flag)
+    static string PlayAction(int? choice, ref bool flag, List<int> ids, List<Classification> classifications, List<double?> strengths)
     { 
         switch (choice)
         {
             case 1:
 
-                return AddSignalHandle();
+                return AddSignalHandle(ids, classifications,strengths);
+
+            case 3:
+                GetAllSignals(ids, classifications, strengths);
+                return "complite";
 
             default:
-                return "fdfdfdfdfd";
+                flag = false;
+                return "complite";
         }
     }
 
@@ -207,17 +219,18 @@ class LogManage
         List<int> ids = new List<int>();
         List<Classification> classifications = new List<Classification>();
         List<double?> strengths = new List<double?>();
-
-        //AddSignal(ids, classifications, strengths, 1, Classification.Friendly, 50.5);
-        //GetAllSignals(ids, classifications, strengths);
-        ////Console.WriteLine(GetIndexOfSignal(ids, 55));
-
-        //PrintMenu();
-
-        //GetChoiceFromUser();
-
+        
         bool flag = true;
-        Console.WriteLine(PlayAction(1, ref flag));
+        
+        while (flag)
+        {
+            PrintMenu();
+            int? choice = GetChoiceFromUser();
+            Console.WriteLine(PlayAction(choice, ref flag, ids, classifications, strengths));
+        }
+
+
+
     }
 
 }
