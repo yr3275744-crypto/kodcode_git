@@ -22,12 +22,13 @@ class Repository<T>
         return _items;
     }
 }
-interface IScoreable { public int Score(); }
+interface IScoreable { public int CalculateScore(); }
 class Image : IScoreable
 {
     public int Id { get; }
     public double CloudCover { get; }
     public string? Sensor { get; }
+    public int Score { get; }
     public Image(int id, double cloudCover, string sensor)
     {
         if (cloudCover < 0 || cloudCover > 100)
@@ -38,9 +39,11 @@ class Image : IScoreable
         Id = id;
         CloudCover = cloudCover;
         Sensor = sensor;
-        
+        Score = CalculateScore();
+
+
     }
-    public virtual int Score()
+    public virtual int CalculateScore()
     {
         return 0 - (int)CloudCover;
     }
@@ -51,7 +54,7 @@ class SarImage : Image
     public SarImage(int id, double cloudCover) : base(id, cloudCover, "SAR")
     {
     }
-    public override int Score()
+    public override int CalculateScore()
     {
         return 100 - (int)CloudCover;
     }
@@ -61,7 +64,7 @@ class EoImage : Image
     public EoImage(int id, double cloudCover) : base(id, cloudCover, "EO")
     {
     }
-    public override int Score()
+    public override int CalculateScore()
     {
         return 60 - (int)CloudCover;
     }
@@ -71,7 +74,7 @@ class IrImage : Image
     public IrImage(int id, double cloudCover) : base(id, cloudCover, "IR")
     {
     }
-    public override int Score()
+    public override int CalculateScore()
     {
         return 40 - (int)CloudCover;
     }
@@ -103,8 +106,8 @@ class Program
         int scorsTotal = 0;
         foreach (Image image in images.GetAll())
         {
-            scorsTotal += image.Score();
-            Console.WriteLine(image.Score());
+            scorsTotal += image.Score;
+            Console.WriteLine(image.Score);
         }
         Console.WriteLine($"{scorsTotal}");
     }
