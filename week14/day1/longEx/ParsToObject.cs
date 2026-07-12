@@ -10,7 +10,7 @@ class ParsToReport
         string[] splitedLine = line.Split(" ");
         if (splitedLine.Length != 3)
         {
-            throw new InvalidLine("line must have exactly 3 arguments.");
+            throw new InvalidArgomentsNumber("line must have exactly 3 arguments.");
         }
         int id = int.Parse(splitedLine[0]);
         string category = splitedLine[1];

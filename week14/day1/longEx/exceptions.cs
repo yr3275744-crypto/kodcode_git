@@ -4,9 +4,9 @@ using System.Security.Cryptography;
 using System.Text;
 
 namespace longEx;
-    class InvalidLine : Exception
+    class InvalidArgomentsNumber : ArgumentException
     {
-        public InvalidLine(string message) : base(message) { }
+        public InvalidArgomentsNumber(string message) : base(message) { }
     }
     class InvalidPriority : Exception
     {

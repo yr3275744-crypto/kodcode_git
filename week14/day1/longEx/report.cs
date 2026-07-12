@@ -10,11 +10,15 @@ namespace longEx
         public string Category { get; set; }
         public int Priority { get; set; }
 
-        public Report(int id, string catgory, int priority)
+        public Report(int id, string category, int priority)
         {
             Id = id;
-            Category = catgory;
+            Category = category;
             Priority = priority;
+        }
+        public override string ToString()
+        {
+            return $"Id: {Id}. Category:{Category}. Priority: {Priority}";
         }
     }
 }
