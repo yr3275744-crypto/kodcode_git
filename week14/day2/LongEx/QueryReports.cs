@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 namespace LongEx;
 class QueryReports
@@ -12,7 +13,7 @@ class QueryReports
     {
         Reports = reports;
     }
-    public void PrintFilteringAndProgectionQueries()
+    public void PrintFilteringAndProgection()
     {
         int totalCount = Reports.Count();
         
@@ -24,7 +25,7 @@ class QueryReports
             .Select(report => new {Id = report.Id});
         var commsIdAndPriority = Reports.Where(report => report.Category == "COMMS")
             .Select(report => new { Id = report.Id, Priority = report.Priority });
-        var specificSignalStrengths = Reports.Where(report => report.SignalStrength <= 70 && report.SignalStrength <= 90)
+        var specificSignalStrengths = Reports.Where(report => report.SignalStrength >= 70 && report.SignalStrength <= 90)
             .Select(report => new { Id = report.Id });
         var notWestZone = Reports.Where(report => report.Zone != "West")
             .Select(report => new { Id = report.Id });
@@ -55,6 +56,46 @@ class QueryReports
         {
             Console.WriteLine($"reports that are not in the West zone. id:{row.Id}");
         }
+    }
+    public void PrintOrderingAndSlicing()
+    {
+        var orderPriority = Reports.OrderBy(report => report.Priority)
+            .Select(report => new { Id = report.Id });
+        var orederZoneAndPriority = Reports.OrderBy(report => report.Zone)
+            .ThenByDescending(report => report.Priority);
+        var hiest3 = Reports.OrderByDescending(report => report.SignalStrength)
+            .Take(3)
+            .Select(report => new { Id = report.Id });
+        var wikest2 = Reports.OrderBy(report => report.SignalStrength)
+            .Take(2)
+            .Select(report => new { Id = report.Id });
+        foreach (var row in orderPriority)
+        {
+            Console.WriteLine($"Orderd by priority, id:{row.Id}");
+        }
+        foreach (var row in orederZoneAndPriority)
+        {
+            Console.WriteLine($"Orderd by zone and priority, id:{row.Id}");
+        }
+        foreach (var row in hiest3)
+        {
+            Console.WriteLine($"The 3 highest reports, id:{row.Id}");
+        }
+        foreach (var row in wikest2)
+        {
+            Console.WriteLine($"The 2 wikest reports, id:{row.Id}");
+        }
+    }
+    public void PrintAggrigation()
+    {
+        int HighestPriorityCount = Reports.Count(report => report.Priority == 5);
+        int h1 = Reports.Max(report => report.SignalStrength);
+        int w1 = Reports
+            .Where(report => report.Shift == "Night")
+            .Min(report => report.SignalStrength);
+        Console.WriteLine($"HighestPriorityCount: {HighestPriorityCount}");
+        Console.WriteLine($"max: {h1}");
+        Console.WriteLine($"min night: {w1}");
     }
 }
 
