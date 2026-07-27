@@ -1,0 +1,6 @@
+@DutyLogAPI_HostAddress = http://localhost:5167
+
+GET {{DutyLogAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
