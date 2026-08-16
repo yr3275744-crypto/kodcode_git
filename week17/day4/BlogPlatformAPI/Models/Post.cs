@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace BlogPlatformAPI.Models;
 
@@ -6,6 +7,8 @@ public class Post
 {
     public int Id { get; set; }
     public int AuthorId { get; set; }
+
+    //[JsonIgnore]
     public Author Author { get; set; } = null!;
 
     [Required]

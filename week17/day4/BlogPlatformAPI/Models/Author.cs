@@ -15,6 +15,5 @@ public class Author
 
     [Required]
     public DateTime? JoinedDate { get; set; }
-    //public int PostId { get; set; }
     public ICollection<Post> Posts { get; set; } = new List<Post>();
 }

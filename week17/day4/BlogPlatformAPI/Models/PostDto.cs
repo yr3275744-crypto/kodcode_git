@@ -12,4 +12,16 @@ public class PostDto
 
     [Required]
     public string? Body { get; set; }
+
+    public AuthorDto Author { get; set; }
+    public ICollection<CommentDto>? Comments { get; set; }
+    public PostDto(int id, int authorId, string? title, string? body, AuthorDto author, ICollection<CommentDto>? comments)
+    {
+        Id = id;
+        AuthorId = authorId;
+        Title = title;
+        Body = body;
+        Author = author;
+        Comments = comments;
+    }
 }

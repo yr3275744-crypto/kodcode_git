@@ -4,6 +4,6 @@ namespace BlogPlatformAPI.Repositories
 {
     public interface IAuthorRepository
     {
-        Task<IEnumerable<Author>> PostsNumberPerAuthor();
+        Task<IEnumerable<object>> CommentNumberPerAuthor();
     }
 }

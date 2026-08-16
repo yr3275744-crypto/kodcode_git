@@ -4,17 +4,18 @@ namespace BlogPlatformAPI.Repositories;
 
 public interface IPostRepository
 {
-    Task<IEnumerable<Post>> GetPostsTreeAsync();
-    Task<IEnumerable<Post>> SearchPublishedPosts(
+    Task<IEnumerable<PostDto>> GetPostsTreeAsync();
+    Task<IEnumerable<PostDto>> SearchPublishedPosts(
         int? authorId,
         DateTime? minPublishedDate,
         DateTime? maxPublishedDate
         );
-    Task<IEnumerable<Post>> Sort(
-        string? title,
-        string? PublishedDate,
+    Task<IEnumerable<PostDto>> Sort(
+        bool? title,
+        bool? publishedDate,
         bool? descending);
-    Task<IEnumerable<Post>> TitleAndCommentCountPerPost();
+    Task<IEnumerable<object>> TitleAndCommentCountPerPost();
 
+    Task<IEnumerable<PostDto>> Pagination(int page, int pageLength);
 
 }
