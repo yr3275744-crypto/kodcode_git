@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="../Producer/Producer.csproj" />
+  <Project Path="SensorApi.csproj" />
+</Solution>
