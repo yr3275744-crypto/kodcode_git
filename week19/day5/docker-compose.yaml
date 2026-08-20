@@ -1,0 +1,14 @@
+services:
+    kafka:
+        image: apache/kafka:latest
+        container_name: kafka
+        ports:
+            - 9092:9092
+    mysql:
+        image: mysql
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: example
+        ports:
+            - 3306:3306
+

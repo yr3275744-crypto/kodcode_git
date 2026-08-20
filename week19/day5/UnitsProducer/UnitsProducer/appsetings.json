@@ -1,0 +1,10 @@
+{
+  "Kafka": {
+    "bootstrapServers": "localhost:9092",
+    "Topics": {
+      "Uav": "uav-topic",
+      "Hostile": "hostile-topic",
+      "Track": "track-topic"
+    }
+  }
+}
