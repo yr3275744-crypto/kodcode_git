@@ -7,10 +7,6 @@ using UnitsConsumer.Services;
 
 class Program
 {
-    //private static GetConfiguration()
-    //{
-
-    //}
     public async static Task Main()
     {
         var config = new ConfigurationBuilder()
