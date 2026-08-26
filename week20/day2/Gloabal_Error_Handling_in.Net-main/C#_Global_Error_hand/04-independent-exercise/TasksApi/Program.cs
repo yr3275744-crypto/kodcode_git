@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Diagnostics;
 using System.Text.Json.Serialization;
-using TasksApi.Middelware;
+using TasksApi.ExceptionHandlers;
 using TasksApi.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,7 +11,7 @@ builder.Services.AddControllers().AddJsonOptions(x =>
 x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<ITaskRepository, TaskRepository>();
-//builder.Services.AddSingleton<ExceptionHandlerMiddleware>
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
 
 var app = builder.Build();
@@ -19,7 +19,7 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.UseMiddleware<ExceptionHandlingMiddelware>();
+app.UseExceptionHandler();
 app.MapControllers();
 
 app.Run();
