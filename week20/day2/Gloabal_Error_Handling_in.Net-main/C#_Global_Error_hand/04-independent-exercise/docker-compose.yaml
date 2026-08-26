@@ -1,0 +1,11 @@
+services:
+  tasks-api:
+    build: ./TasksApi
+    ports:
+      - "8081:8080"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "htp://localhost:8081/api/Tasks"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
